@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-export function countLines(dir, { includePatterns, excludePatterns }) {
+export function countLines(dir, includePatterns, excludePatterns) {
 
   let totalLines = 0;
   let blankLines = 0;
