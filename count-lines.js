@@ -6,6 +6,8 @@ export function countLines(dir, includePatterns, excludePatterns) {
   let totalLines = 0;
   let blankLines = 0;
   let commentLines = 0;
+  let tests = 0;
+  const testRegex = /\b(test|it)\s*\(/g;
 
   function matchesAnyPattern(filePath, patterns) {
     return patterns.some(pattern => pattern.test(filePath));
@@ -25,7 +27,7 @@ export function countLines(dir, includePatterns, excludePatterns) {
       } else {
         if (matchesAnyPattern(file, includePatterns) && !matchesAnyPattern(fullPath, excludePatterns)) {
           const fileContent = fs.readFileSync(fullPath, 'utf-8');
-          const lines = fileContent.split('\n');
+                    const lines = fileContent.split('\n');
 
           totalLines += lines.length;
           lines.forEach((line) => {
@@ -36,11 +38,14 @@ export function countLines(dir, includePatterns, excludePatterns) {
               commentLines += 1;
             }
           });
+
+          const matches = fileContent.match(testRegex);
+          tests += (matches ? matches.length : 0);
         }
       }
     });
   }
 
   readDirRecursive(dir);
-  return { totalLines, blankLines, commentLines };
+  return { totalLines, blankLines, commentLines, tests };
 }

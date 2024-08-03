@@ -15,6 +15,7 @@ async function doIt() {
   const commits = await countCommits(projectPath);
 
   console.log(`Commits: ${commits}`);
+  console.log(`Tests: ${testResults.tests}`);
   console.log(`Code lines: ${nonTestResults.totalLines - nonTestResults.blankLines - nonTestResults.commentLines}`);
   console.log(`Test lines: ${testResults.totalLines - testResults.blankLines - testResults.commentLines}`);
   console.log(`Total lines: ${nonTestResults.totalLines + testResults.totalLines}`);
